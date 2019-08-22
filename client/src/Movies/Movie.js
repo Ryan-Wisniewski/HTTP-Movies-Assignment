@@ -9,6 +9,12 @@ export default class Movie extends React.Component {
     };
   }
 
+  item = (props) => { 
+    console.log('REEEEE',props)
+    return props.items.find(
+    thing => `${thing.id}` === props.match.params.id
+  )}
+
   componentDidMount() {
     this.fetchMovie(this.props.match.params.id);
   }
@@ -39,9 +45,14 @@ export default class Movie extends React.Component {
     return (
       <div className="save-wrapper">
         <MovieCard movie={this.state.movie} />
-        <div className="save-button" onClick={this.saveMovie}>
+        <button className="save-button" onClick={this.saveMovie}>
           Save
-        </div>
+        </button>
+        <button className="save-button" onClick={() => {
+          console.log(this.state)
+          return this.props.history.push(`/update-movie/${this.state.movie.id}`)}}>
+          Edit
+        </button>
       </div>
     );
   }
